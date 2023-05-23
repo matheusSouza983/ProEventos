@@ -4,6 +4,7 @@ CRIANDO O PROJETO
 obs1: rodar "dotnet dev-certs https --trust" para instalar o certificado de desenvolvedor para poder fazer os testes.
 obs2: para criar o gitignore do c# rodar o comando "dotnet new gitignore"
 
+------------------------------------------------------------------------------------------
 
 ENTITY FRAMEWORK CORE
 
@@ -18,4 +19,32 @@ ENTITY FRAMEWORK CORE
 4 - criando a migration
     4.1 - dotnet ef migrations add Initial -o Data/Migrations (-h para ajuda / -o para caminho)  
     4.2 - dotnet ef database update (criar o banco de dados)
-5 - importar o contexto na controller
+
+------------------------------------------------------------------------------------------
+
+MULTIPLAS CAMADAS
+
+1 - criar o arquivo de solução
+    1.1 - entrar no diretorio src e rodar o comando "dotnet new sln -n ProEventos"
+    1.2 - criar uma class library com o comando "dotnet new classlib -n ProEventos.Persistence"
+    1.3 - criar uma class library com o comando "dotnet new classlib -n ProEventos.Domain"
+    1.4 - criar uma class library com o comando "dotnet new classlib -n ProEventos.Application"
+2 - referenciar os projetos no arquivo de solução
+    2.1 - adicionar a class library no arquivo de solução "dotnet sln ProEventos.sln add ProEventos.Application"
+    2.2 - adicionar a class library no arquivo de solução "dotnet sln ProEventos.sln add ProEventos.Persistence"
+    2.3 - adicionar a class library no arquivo de solução "dotnet sln ProEventos.sln add ProEventos.Domain"
+    2.3 - adicionar a class library no arquivo de solução "dotnet sln ProEventos.sln add ProEventos.API"
+3 - adicionando referencia no ProEventos.API
+    3.1 - dotnet add ProEventos.API/ProEventos.API.csproj reference ProEventos.Application
+4 - adicionando referencia no ProEventos.Application
+    4.1 - dotnet add ProEventos.Application/ProEventos.Application.csproj reference ProEventos.Domain
+    4.2 - dotnet add ProEventos.Application/ProEventos.Application.csproj reference ProEventos.Persistence
+5 - adicionando referencia no ProEventos.Domain
+    5.1 - nao precisa referenciar ninguem
+6 - adicionando referencia no ProEventos.Persistence
+    6.1 - dotnet add ProEventos.Persistence/ProEventos.Persistence.csproj reference ProEventos.Domain
+7 - criando a nota migration "dotnet ef migrations add Initial -p ProEventos.Persistence -s ProEventos.API"
+8 - criar o banco de dados "dotnet ef database update -s ProEventos.API"
+
+obs: instalar o entityframeworkcore e entityframeworkcore.tools no persistence
+obs: instalar o Microsoft.AspNetCore.Mvc.NewtonsoftJson no proeventos.api
