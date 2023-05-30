@@ -48,3 +48,15 @@ MULTIPLAS CAMADAS
 
 obs: instalar o entityframeworkcore e entityframeworkcore.tools no persistence
 obs: instalar o Microsoft.AspNetCore.Mvc.NewtonsoftJson no proeventos.api
+
+------------------------------------------------------------------------------------------
+
+AUTOMAPPER E PROFILE
+
+1 - abrir a galeria nugget e instalar o AutoMapper.Extensions.Microsoft.DependencyInjection dentro do proeventos.api
+2 - entrar no startup e adicionar o services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+3 - 
+4 - 
+5 - 
+6 - 
+7 - 
